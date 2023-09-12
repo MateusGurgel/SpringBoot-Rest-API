@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  mysql:
+    image: mariadb:latest
+    container_name: rest-api-springboot
+    ports:
+      - "3306:3306"
+    environment:
+      #Don't forget to change those credentials on production mode
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: root
+    volumes:
+      - ./data:/var/lib/mysql
+    restart: "unless-stopped"
