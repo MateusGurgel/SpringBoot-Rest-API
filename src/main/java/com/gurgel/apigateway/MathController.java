@@ -1,5 +1,7 @@
 package com.gurgel.apigateway;
 
+import com.gurgel.apigateway.Utils.BasicMath;
+import com.gurgel.apigateway.Utils.NumberConverter;
 import com.gurgel.apigateway.exceptions.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +16,11 @@ public class MathController {
                             @PathVariable("num2") String num2
     ) throws Exception {
 
-        if(!isNumber(num) || !isNumber(num2)){
+        if(!NumberConverter.isNumber(num) || !NumberConverter.isNumber(num2)){
             throw new UnsupportedMathOperationException("Please, set a numeric value!");
         }
 
-        return convertToDouble(num) + convertToDouble(num2);
+        return BasicMath.sum(NumberConverter.convertToDouble(num), NumberConverter.convertToDouble(num2));
     }
 
     @RequestMapping(value="/sub/{num}/{num2}", method=RequestMethod.GET)
@@ -26,21 +28,21 @@ public class MathController {
                       @PathVariable("num2") String num2
     ) throws Exception {
 
-        if(!isNumber(num) || !isNumber(num2)){
+        if(!NumberConverter.isNumber(num) || !NumberConverter.isNumber(num2)){
             throw new UnsupportedMathOperationException("Please, set a numeric value!");
         }
 
-        return convertToDouble(num) - convertToDouble(num2);
+        return BasicMath.sum(NumberConverter.convertToDouble(num), NumberConverter.convertToDouble(num2));
     }
 
     @RequestMapping(value="/sqrt/{num}", method=RequestMethod.GET)
-    public double sub(@PathVariable("num") String num) throws Exception {
+    public double sqrt(@PathVariable("num") String num) throws Exception {
 
-        if(!isNumber(num)){
+        if(!NumberConverter.isNumber(num)){
             throw new UnsupportedMathOperationException("Please, set a numeric value!");
         }
 
-        return Math.sqrt(convertToDouble(num));
+        return BasicMath.sqrt(NumberConverter.convertToDouble(num));
     }
 
     @RequestMapping(value="/mean/{num}/{num2}", method=RequestMethod.GET)
@@ -48,11 +50,11 @@ public class MathController {
                       @PathVariable("num2") String num2
     ) throws Exception {
 
-        if(!isNumber(num) || !isNumber(num2)){
+        if(!NumberConverter.isNumber(num) || !NumberConverter.isNumber(num2)){
             throw new UnsupportedMathOperationException("Please, set a numeric value!");
         }
 
-        return (convertToDouble(num) + convertToDouble(num2)) / 2;
+        return BasicMath.mean(NumberConverter.convertToDouble(num), NumberConverter.convertToDouble(num2));
     }
 
     @RequestMapping(value="/div/{num}/{num2}", method=RequestMethod.GET)
@@ -60,11 +62,11 @@ public class MathController {
                       @PathVariable("num2") String num2
     ) throws Exception {
 
-        if(!isNumber(num) || !isNumber(num2)){
+        if(!NumberConverter.isNumber(num) || !NumberConverter.isNumber(num2)){
             throw new UnsupportedMathOperationException("Please, set a numeric value!");
         }
 
-        return convertToDouble(num) / convertToDouble(num2);
+        return BasicMath.div(NumberConverter.convertToDouble(num), NumberConverter.convertToDouble(num2));
     }
 
     @RequestMapping(value="/mul/{num}/{num2}", method=RequestMethod.GET)
@@ -72,25 +74,10 @@ public class MathController {
                       @PathVariable("num2") String num2
     ) throws Exception {
 
-        if(!isNumber(num) || !isNumber(num2)){
+        if(!NumberConverter.isNumber(num) || !NumberConverter.isNumber(num2)){
             throw new UnsupportedMathOperationException("Please, set a numeric value!");
         }
 
-        return convertToDouble(num) * convertToDouble(num2);
-    }
-
-    private double convertToDouble(String strNumber){
-        if (strNumber == null) return 0D;
-
-        String number = strNumber.replaceAll(",", ".");
-        if (isNumber(number)) return Double.parseDouble(number);
-        return 0D;
-    }
-
-    private boolean isNumber(String strNumber){
-        if (strNumber == null) return false;
-        String number = strNumber.replaceAll(",", ".");
-
-        return number.matches("[-+]?[0-9]*\\.?[0-9]+");
+        return BasicMath.mul(NumberConverter.convertToDouble(num), NumberConverter.convertToDouble(num2));
     }
 }
