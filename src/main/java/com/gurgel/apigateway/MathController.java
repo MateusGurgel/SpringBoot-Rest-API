@@ -1,5 +1,6 @@
 package com.gurgel.apigateway;
 
+import com.gurgel.apigateway.exceptions.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,14 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class MathController {
 
     @RequestMapping(value="/math/{num}/{num2}", method=RequestMethod.GET)
-    public double calculator(@PathVariable("num") String num,
+    public double sum(@PathVariable("num") String num,
                             @PathVariable("num2") String num2
-    ) throws Exception{
+    ) throws Exception {
 
         if(!isNumber(num) || !isNumber(num2)){
-            throw new Exception();
+            throw new UnsupportedMathOperationException("Please, set a numeric value!");
         }
-
 
         return convertToDouble(num) + convertToDouble(num2);
     }
