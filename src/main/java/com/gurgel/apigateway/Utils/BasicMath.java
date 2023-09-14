@@ -21,6 +21,6 @@ public class BasicMath {
     }
 
     public static double sqrt(double num){
-        return BasicMath.sqrt(num);
+        return Math.sqrt(num);
     }
 }

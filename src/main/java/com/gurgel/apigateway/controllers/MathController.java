@@ -32,7 +32,7 @@ public class MathController {
             throw new UnsupportedMathOperationException("Please, set a numeric value!");
         }
 
-        return BasicMath.sum(NumberConverter.convertToDouble(num), NumberConverter.convertToDouble(num2));
+        return BasicMath.sub(NumberConverter.convertToDouble(num), NumberConverter.convertToDouble(num2));
     }
 
     @RequestMapping(value="/sqrt/{num}", method=RequestMethod.GET)
