@@ -1,5 +1,6 @@
-package com.gurgel.apigateway;
+package com.gurgel.apigateway.controllers;
 
+import com.gurgel.apigateway.models.Greeting;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

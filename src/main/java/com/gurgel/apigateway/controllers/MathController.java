@@ -1,4 +1,4 @@
-package com.gurgel.apigateway;
+package com.gurgel.apigateway.controllers;
 
 import com.gurgel.apigateway.Utils.BasicMath;
 import com.gurgel.apigateway.Utils.NumberConverter;
