@@ -1,6 +1,8 @@
 package com.gurgel.apigateway.services;
 
+import com.gurgel.apigateway.data.vo.v1.PersonVO;
 import com.gurgel.apigateway.exceptions.ResourceNotFoundException;
+import com.gurgel.apigateway.mapper.DozerMapper;
 import com.gurgel.apigateway.models.Person;
 import com.gurgel.apigateway.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +20,22 @@ public class PersonServices {
     @Autowired
     PersonRepository repository;
 
-    public Person findById(Long id){
+    public PersonVO findById(Long id){
         logger.info("Finding one person");
 
-        //Person person = mockPerson(Integer.parseInt(id));Res
-        return repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("No records found for this id")) ;
+        var entity = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("No records found for this id"));
+
+        return DozerMapper.parseObject(entity, PersonVO.class);
     }
 
-    public List<Person> findAll(){
+    public List<PersonVO> findAll(){
         logger.info("Getting all persons");
 
-         return repository.findAll();
+         return DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
     }
 
-    public Person update(Person person){
+    public PersonVO update(PersonVO person){
         logger.info("Updating one person");
 
         Person entity  = repository.findById(person.getId()).orElseThrow(
@@ -44,7 +47,7 @@ public class PersonServices {
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        return repository.save(entity);
+        return DozerMapper.parseObject(repository.save(entity), PersonVO.class);
     }
 
     public void delete(Long personId){
@@ -58,18 +61,11 @@ public class PersonServices {
 
     }
 
-    public Person create(Person person){
+    public PersonVO create(PersonVO person){
         logger.info("Creating one person");
-        return repository.save(person );
-    }
 
-    private Person mockPerson(int i) {
-        Person person = new Person();
-        person.setId(counter.incrementAndGet());
-        person.setFirstName("Mateus " + i);
-        person.setLastName("Gurgel");
-        person.setGender("Male");
-        person.setAddress("Road braba do sul, 198");
-        return person;
+        var entity = DozerMapper.parseObject(person, Person.class);
+        var voEntity = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        return voEntity;
     }
 }
