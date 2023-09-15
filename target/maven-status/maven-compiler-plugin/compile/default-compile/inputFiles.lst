@@ -1,0 +1,12 @@
+/home/mateus/Projects/SpringBootAPI/src/main/java/com/gurgel/apigateway/services/PersonServices.java
+/home/mateus/Projects/SpringBootAPI/src/main/java/com/gurgel/apigateway/SpringBootRestApiApplication.java
+/home/mateus/Projects/SpringBootAPI/src/main/java/com/gurgel/apigateway/services/BasicMath.java
+/home/mateus/Projects/SpringBootAPI/src/main/java/com/gurgel/apigateway/exceptions/UnsupportedMathOperationException.java
+/home/mateus/Projects/SpringBootAPI/src/main/java/com/gurgel/apigateway/exceptions/ExceptionResponse.java
+/home/mateus/Projects/SpringBootAPI/src/main/java/com/gurgel/apigateway/models/Greeting.java
+/home/mateus/Projects/SpringBootAPI/src/main/java/com/gurgel/apigateway/services/NumberConverter.java
+/home/mateus/Projects/SpringBootAPI/src/main/java/com/gurgel/apigateway/controllers/PersonController.java
+/home/mateus/Projects/SpringBootAPI/src/main/java/com/gurgel/apigateway/controllers/GreetingController.java
+/home/mateus/Projects/SpringBootAPI/src/main/java/com/gurgel/apigateway/models/Person.java
+/home/mateus/Projects/SpringBootAPI/src/main/java/com/gurgel/apigateway/controllers/MathController.java
+/home/mateus/Projects/SpringBootAPI/src/main/java/com/gurgel/apigateway/exceptions/handler/CustomizedResponseEntityExceptionHandler.java
