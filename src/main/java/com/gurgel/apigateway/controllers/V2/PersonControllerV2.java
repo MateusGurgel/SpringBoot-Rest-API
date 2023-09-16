@@ -1,8 +1,8 @@
-package com.gurgel.apigateway.controllers;
+package com.gurgel.apigateway.controllers.V2;
 
-import com.gurgel.apigateway.data.vo.v1.PersonVO;
+import com.gurgel.apigateway.data.vo.v2.PersonVOV2;
+import com.gurgel.apigateway.services.V2.PersonServicesV2;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.gurgel.apigateway.services.PersonServices;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,34 +10,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
-public class PersonController {
+@RequestMapping("/person/V2")
+public class PersonControllerV2 {
     @Autowired
-    private PersonServices service;
+    private PersonServicesV2 service;
     //private PersonService = new PersonServices()
 
     @GetMapping(value= "/{id}",
                     produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonVO findById(@PathVariable(value = "id") Long id){
+    public PersonVOV2 findById(@PathVariable(value = "id") Long id){
 
         return service.findById(id);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PersonVO> findAll(){
+    public List<PersonVOV2> findAll(){
         return service.findAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonVO create(@RequestBody PersonVO person) {
+    public PersonVOV2 create(@RequestBody PersonVOV2 person) {
         return service.create(person);
     }
 
     @PutMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonVO update(@RequestBody PersonVO person) {
+    public PersonVOV2 update(@RequestBody PersonVOV2 person) {
         return service.update(person);
     }
 

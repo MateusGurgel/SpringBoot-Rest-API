@@ -1,4 +1,4 @@
-package com.gurgel.apigateway.models;
+package com.gurgel.apigateway.models.v1;
 
 public class Greeting {
     private final long id;

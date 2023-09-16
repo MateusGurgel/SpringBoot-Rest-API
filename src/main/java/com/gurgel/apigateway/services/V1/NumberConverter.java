@@ -1,4 +1,4 @@
-package com.gurgel.apigateway.services;
+package com.gurgel.apigateway.services.V1;
 
 public class NumberConverter {
     public static double convertToDouble(String strNumber){

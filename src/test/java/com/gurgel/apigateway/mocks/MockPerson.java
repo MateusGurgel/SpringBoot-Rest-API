@@ -1,7 +1,7 @@
 package com.gurgel.apigateway.mocks;
 
 import com.gurgel.apigateway.data.vo.v1.PersonVO;
-import com.gurgel.apigateway.models.Person;
+import com.gurgel.apigateway.models.v1.Person;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,7 +7,7 @@ import java.util.List;
 import com.gurgel.apigateway.data.vo.v1.PersonVO;
 import com.gurgel.apigateway.mapper.DozerMapper;
 import com.gurgel.apigateway.mocks.MockPerson;
-import com.gurgel.apigateway.models.Person;
+import com.gurgel.apigateway.models.v1.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

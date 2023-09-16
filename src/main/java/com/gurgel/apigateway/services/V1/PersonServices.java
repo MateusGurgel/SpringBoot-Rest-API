@@ -1,10 +1,10 @@
-package com.gurgel.apigateway.services;
+package com.gurgel.apigateway.services.V1;
 
 import com.gurgel.apigateway.data.vo.v1.PersonVO;
 import com.gurgel.apigateway.exceptions.ResourceNotFoundException;
 import com.gurgel.apigateway.mapper.DozerMapper;
-import com.gurgel.apigateway.models.Person;
-import com.gurgel.apigateway.repositories.PersonRepository;
+import com.gurgel.apigateway.models.v1.Person;
+import com.gurgel.apigateway.repositories.v1.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

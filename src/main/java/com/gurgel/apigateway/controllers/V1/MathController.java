@@ -1,7 +1,7 @@
-package com.gurgel.apigateway.controllers;
+package com.gurgel.apigateway.controllers.V1;
 
-import com.gurgel.apigateway.services.BasicMath;
-import com.gurgel.apigateway.services.NumberConverter;
+import com.gurgel.apigateway.services.V1.BasicMath;
+import com.gurgel.apigateway.services.V1.NumberConverter;
 import com.gurgel.apigateway.exceptions.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

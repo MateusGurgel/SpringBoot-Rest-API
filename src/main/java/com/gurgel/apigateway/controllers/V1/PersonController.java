@@ -1,0 +1,49 @@
+package com.gurgel.apigateway.controllers.V1;
+
+import com.gurgel.apigateway.data.vo.v1.PersonVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.gurgel.apigateway.services.V1.PersonServices;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/person")
+public class PersonController {
+    @Autowired
+    private PersonServices service;
+    //private PersonService = new PersonServices()
+
+    @GetMapping(value= "/{id}",
+                    produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonVO findById(@PathVariable(value = "id") Long id){
+
+        return service.findById(id);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<PersonVO> findAll(){
+        return service.findAll();
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+                 produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonVO create(@RequestBody PersonVO person) {
+        return service.create(person);
+    }
+
+    @PutMapping(
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonVO update(@RequestBody PersonVO person) {
+        return service.update(person);
+    }
+
+    @DeleteMapping( value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+}
