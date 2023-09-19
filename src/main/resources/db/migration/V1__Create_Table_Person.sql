@@ -4,6 +4,5 @@ CREATE TABLE `people` (
   `first_name` varchar(80) NOT NULL,
   `gender` varchar(255) DEFAULT NULL,
   `last_name` varchar(80) NOT NULL,
-  `birth_date` datetime(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
