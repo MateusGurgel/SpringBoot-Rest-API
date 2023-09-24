@@ -1,6 +1,7 @@
 package com.gurgel.apigateway.exceptions.handler;
 
 import com.gurgel.apigateway.exceptions.ExceptionResponse;
+import com.gurgel.apigateway.exceptions.RequiredObjectIsNullException;
 import com.gurgel.apigateway.exceptions.UnsupportedMathOperationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,9 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return  new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UnsupportedMathOperationException.class)
+    @ExceptionHandler({
+            UnsupportedMathOperationException.class,
+            RequiredObjectIsNullException.class})
     public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(
             Exception ex, WebRequest request){
 

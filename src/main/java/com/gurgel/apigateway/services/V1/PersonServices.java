@@ -2,6 +2,7 @@ package com.gurgel.apigateway.services.V1;
 
 import com.gurgel.apigateway.controllers.V1.PersonController;
 import com.gurgel.apigateway.data.vo.v1.PersonVO;
+import com.gurgel.apigateway.exceptions.RequiredObjectIsNullException;
 import com.gurgel.apigateway.exceptions.ResourceNotFoundException;
 import com.gurgel.apigateway.mapper.DozerMapper;
 import com.gurgel.apigateway.models.v1.Person;
@@ -60,6 +61,7 @@ public class PersonServices {
         entity.setGender(person.getGender());
 
         var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+
         vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
 
         return vo;
@@ -78,6 +80,8 @@ public class PersonServices {
 
     public PersonVO create(PersonVO person){
         logger.info("Creating one person");
+
+        if(person == null) throw new RequiredObjectIsNullException();
 
         var entity = DozerMapper.parseObject(person, Person.class);
 

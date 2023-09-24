@@ -1,6 +1,7 @@
 package com.gurgel.apigateway.services.V1;
 
 import com.gurgel.apigateway.data.vo.v1.PersonVO;
+import com.gurgel.apigateway.exceptions.RequiredObjectIsNullException;
 import com.gurgel.apigateway.mocks.MockPerson;
 import com.gurgel.apigateway.models.v1.Person;
 import com.gurgel.apigateway.repositories.v1.PersonRepository;
@@ -14,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.swing.text.html.parser.Entity;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -86,6 +88,37 @@ class PersonServicesTest {
 
     @Test
     void findAll() {
+        List<Person> mockedList = input.mockEntityList();
+        when(repository.findAll()).thenReturn(mockedList);
+
+        var people = service.findAll();
+
+        assertNotNull(people);
+        assertEquals(14, people.size());
+
+        people.stream().forEach(person -> {
+
+            assertTrue(person.toString().contains(
+                    "inks: [</person/" + person.getKey() + ">;rel=\"self\"]"
+            ));
+
+            assertEquals("Addres Test" + person.getKey(), person.getAddress());
+            assertEquals("First Name Test" + person.getKey(), person.getFirstName());
+            assertEquals("Last Name Test" + person.getKey(), person.getLastName());
+            assertEquals(((person.getKey() % 2)==0) ? "Male" : "Female", person.getGender());
+        });
+    }
+
+    @Test
+    void createPersonWithNullObject(){
+        Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
+            service.create(null);
+        });
+
+        String actualMessage = exception.getMessage();
+        String expectedMessage = "It is not allowed to persist null objects";
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
