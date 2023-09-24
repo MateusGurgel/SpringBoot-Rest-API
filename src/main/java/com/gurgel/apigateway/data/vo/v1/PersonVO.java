@@ -2,14 +2,17 @@ package com.gurgel.apigateway.data.vo.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.github.dozermapper.core.Mapping;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 @JsonPropertyOrder({"id", "first_name", "last_name", "address", "gender"})
-public class PersonVO implements Serializable {
+public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
     private static final long serialVersionID = 1l;
-    private long id;
+   @Mapping("id")
+   @JsonProperty("id")
+    private long key;
 
     @JsonProperty("first_name")
     private String firstName;
@@ -18,12 +21,15 @@ public class PersonVO implements Serializable {
     private String address;
     private String gender;
     public PersonVO() {}
-    public long getId() {
-        return id;
+
+    public long getKey() {
+        return key;
     }
-    public void setId(long id) {
-        this.id = id;
+
+    public void setKey(long key) {
+        this.key = key;
     }
+
     public String getFirstName() {
         return firstName;
     }
@@ -47,14 +53,5 @@ public class PersonVO implements Serializable {
     }
     public void setGender(String gender) {
         this.gender = gender;
-    }
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PersonVO person = (PersonVO) o;
-        return id == person.id && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(gender, person.gender);
-    }
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, gender);
     }
 }

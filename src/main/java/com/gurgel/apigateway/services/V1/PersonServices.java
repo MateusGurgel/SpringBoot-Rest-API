@@ -1,5 +1,6 @@
 package com.gurgel.apigateway.services.V1;
 
+import com.gurgel.apigateway.controllers.V1.PersonController;
 import com.gurgel.apigateway.data.vo.v1.PersonVO;
 import com.gurgel.apigateway.exceptions.ResourceNotFoundException;
 import com.gurgel.apigateway.mapper.DozerMapper;
@@ -7,6 +8,11 @@ import com.gurgel.apigateway.models.v1.Person;
 import com.gurgel.apigateway.repositories.v1.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -26,19 +32,25 @@ public class PersonServices {
         var entity = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("No records found for this id"));
 
-        return DozerMapper.parseObject(entity, PersonVO.class);
+        var vo = DozerMapper.parseObject(entity, PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+
+        return vo;
     }
 
     public List<PersonVO> findAll(){
-        logger.info("Getting all persons");
+         logger.info("Getting all persons");
 
-         return DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
+         var people = DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
+         people.stream().forEach(vo -> vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel()));
+
+         return people;
     }
 
     public PersonVO update(PersonVO person){
         logger.info("Updating one person");
 
-        Person entity  = repository.findById(person.getId()).orElseThrow(
+        Person entity  = repository.findById(person.getKey()).orElseThrow(
                 () -> new ResourceNotFoundException("No records found for this id")
         );
 
@@ -47,7 +59,10 @@ public class PersonServices {
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        return DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
+
+        return vo;
     }
 
     public void delete(Long personId){
@@ -65,7 +80,10 @@ public class PersonServices {
         logger.info("Creating one person");
 
         var entity = DozerMapper.parseObject(person, Person.class);
-        var voEntity = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
-        return voEntity;
+
+        var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
+
+        return vo;
     }
 }
