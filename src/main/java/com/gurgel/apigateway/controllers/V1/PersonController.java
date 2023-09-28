@@ -103,9 +103,7 @@ public class PersonController {
             description = "Deletes a people",
             tags = {"People"},
             responses = {
-                    @ApiResponse(description = "Success", responseCode = "200", content = @Content(
-                            schema = @Schema(implementation = PersonVO.class )
-                    )),
+                    @ApiResponse(description = "Success", responseCode = "200"),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
